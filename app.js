@@ -8,7 +8,16 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var swagger = require("swagger-node-express");
+
 var app = express();
+swagger.setAppHandler(app);
+swagger.configure("http://localhost:3000/", "0.0.0");
+
+swagger.setHeaders = function setHeaders(res) {
+  res.header("Access-Control-Allow-Headers", "Content-Type, X-API-KEY");
+  res.header("Content-Type", "application/json; charset=utf-8");
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
